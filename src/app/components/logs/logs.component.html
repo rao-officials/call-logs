@@ -1,0 +1,84 @@
+<div class="p-6">
+  <div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-xl font-semibold text-gray-900">Call Logs</h1>
+          <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
+        </div>
+        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <!-- <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add </button> -->
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 flow-root overflow-hidden">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <table class="w-full text-left">
+          <thead class="bg-white">
+            <tr>
+              <th scope="col" class="relative isolate py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                From
+                <div class="absolute inset-y-0 right-full -z-10 w-screen border-b border-b-gray-200"></div>
+                <div class="absolute inset-y-0 left-0 -z-10 w-screen border-b border-b-gray-200"></div>
+              </th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell">
+                Caller ID</th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell">
+                Created At</th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell">
+                Updated At</th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell">
+                Duration</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+              <th scope="col" class="relative py-3.5 pl-3">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of logs">
+              <td class="relative py-4 pr-3 text-sm font-medium text-gray-900">
+                {{log.From}}
+                <div class="absolute bottom-0 right-full h-px w-screen bg-gray-100"></div>
+                <div class="absolute bottom-0 left-0 h-px w-screen bg-gray-100"></div>
+              </td>
+              <td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{{log.CallSid}}</td>
+              <td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{{log.createdAt}}</td>
+              <td class="hidden px-3 py-4 text-sm text-gray-500 md:table-cell">{{log.updatedAt}}</td>
+              <td class="hidden px-3 py-4 text-sm text-gray-500 md:table-cell">{{log.RecordingDuration + "sec"}}</td>
+              <td class="px-3 py-4 text-sm text-gray-500">{{log.RecordingStatus}}</td>
+              <td class="relative py-4 pl-3 text-right text-sm font-medium flex space-x-2">
+                <a (click)="openModal(log)" class="text-indigo-600 hover:text-indigo-900">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+
+                  <span class="sr-only"></span></a>
+
+                <a (click)="getConversation(log.RecordingUrl)" class="text-indigo-600 hover:text-indigo-900">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+                  </svg>
+
+
+                  <span class="sr-only"></span></a>
+              </td>
+            </tr>
+
+            <!-- More people... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<app-conversation-history *ngIf="conversation" [logs]='conversation'
+  (closeModal)="conversation = null"></app-conversation-history>

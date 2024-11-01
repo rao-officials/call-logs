@@ -1,0 +1,71 @@
+
+<div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+  
+  <div class="fixed inset-0"></div>
+
+  <div class="fixed inset-0 overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+ 
+        <div class="pointer-events-auto w-screen max-w-2xl">
+          <form class="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl">
+            <div class="h-0 flex-1 overflow-y-auto">
+              <div class="bg-indigo-700 px-4 py-6 sm:px-6">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-base font-semibold text-white" id="slide-over-title">Conversations</h2>
+                  <div class="ml-3 flex h-7 items-center">
+                    <button type="button" (click)="close()" class="relative rounded-md bg-indigo-700 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                      <span class="absolute -inset-2.5"></span>
+                      <span class="sr-only">Close panel</span>
+                      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+               
+              </div>
+              <div class="flex flex-1 flex-col justify-between">
+                <div class="divide-y divide-gray-300 px-4 sm:px-6">
+                  <div class="lg:flex-1 h-screen overflow-y-auto p-4">
+                    <div *ngFor="let sms of logs.Conversation">
+                      <div *ngIf="sms.role === 'system' || sms.role === 'assistant'" class="flex float-left items-end space-x-2 max-w-[95%] xl:max-w-[60%] mb-4">
+                        <div class="flex flex-col gap-1 items-center">
+                          <img
+                          alt="avatar"
+                          class="h-8 w-8 rounded-full object-cover shadow-md ring-1 ring-gray-300"
+                          src="https://cdn.vectorstock.com/i/500p/95/56/user-profile-icon-avatar-or-person-vector-45089556.jpg"
+                        />
+                        <label for="" class="text-xs text-gray-500 font-bold">{{sms.role}}</label>
+                        </div>
+                        <div class="p-3 bg-gray-100 rounded-md space-y-1">
+                          <p class="text-xs text-gray-800">{{ sms.content }}</p>
+                        </div>
+                      </div>
+                      <div class="clear-both"></div>
+                      <div *ngIf="sms.role === 'user'" class="flex float-right items-end space-x-2 max-w-[95%] xl:max-w-[60%] mb-4">
+                        <div class="p-3 bg-blue-500 rounded-md space-y-1">
+                          <p class="text-xs text-white">{{ sms.content }}</p>
+                        </div>
+                        <div class="flex flex-col gap-1 items-center">
+                          <img
+                          alt="avatar"
+                          class="h-8 w-8 rounded-full object-cover shadow-md ring-1 ring-gray-300"
+                          src="https://cdn.vectorstock.com/i/500p/95/56/user-profile-icon-avatar-or-person-vector-45089556.jpg"
+                        />
+                        <label for="" class="text-xs text-gray-500 font-bold">{{sms.role}}</label>
+                        </div>
+                      </div>
+                      <div class="clear-both"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
