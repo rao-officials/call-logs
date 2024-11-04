@@ -7,7 +7,7 @@ import { LogService } from 'src/app/services/log.service';
   styleUrls: ['./logs.component.css']
 })
 export class LogsComponent implements OnInit {
-  logs:any;
+  logs:any =[];
   conversation:any;
 
   constructor(private logService : LogService) { }
@@ -19,12 +19,18 @@ export class LogsComponent implements OnInit {
 
 
   getLogs(){
-    this.logService.getCallLogs().subscribe((data=>{
+    this.logService.getCallLogs().subscribe((data => {
       if(data){
-       this.logs = data;
+        this.logs = data;
+        this.logs.sort((a: any, b: any) => {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          return dateB - dateA;
+        });
       }
-    }))
+    }));
   }
+  
 
   getConversation(conversationURL:any){
     this.logService.getConversation(conversationURL).subscribe((data)=>{
